@@ -1,20 +1,38 @@
-// A2Z F16
-// Daniel Shiffman
-// http://shiffman.net/a2z
-// https://github.com/shiffman/A2Z-F16
 
-// Get input from user
-var fruitInput;
-var totalInput;
-
-// Keep list of DOM elements for clearing later when reloading
-var listItems = [];
 var database;
+
+var popupCoachData = {
+  title: {
+    "it-IT": "",
+    "en-US": "",
+    "de-DE": "",
+    "es-ES": ""
+  },
+  webLink: {
+    "it-IT": ""
+  },
+  cta: "false",
+  ctaLink: {
+    "it-IT": ""
+  },
+  ctaText: {
+    "it-IT": ""
+  },
+  description: {
+    "it-IT": ""
+  },
+  enable: true,
+  img: "",
+  repeat: 1,
+  repeatTime: 10,
+  startDate: "",
+  endDate: ""
+};
 
 function setup() {
 
   var config = {
-    apiKey: "AIzaSyAbrkbRGy78jECUfEaIDg8xrI_-PQ6FKs",
+    apiKey: "AIzaSyAbrkbRGy78jECUfEaIDg8xrI_-PQ6FKso",
     authDomain: "spintrainer-test.firebaseapp.com",
     databaseURL: "https://spintrainer-test.firebaseio.com",
     projectId: "spintrainer-test",
@@ -24,20 +42,14 @@ function setup() {
   firebase.initializeApp(config);
   database = firebase.database();
 
-  // Input fields
-  fruitInput = select('#fruit');
-  totalInput = select('#total');
-
-  // Submit button
   var submit = select('#submit');
   submit.mousePressed(sendToFirebase);
 
-  // Start loading the data
   loadFirebase();
 }
 
 function loadFirebase() {
-  var ref = database.ref("fruits");
+  var ref = database.ref("popupCoach");
   ref.on("value", gotData, errData);
 }
 
@@ -46,50 +58,36 @@ function errData(error) {
   console.log(error);
 }
 
-// The data comes back as an object
 function gotData(data) {
-  var fruits = data.val();
-  // Grab all the keys to iterate over the object
-  var keys = Object.keys(fruits);
 
-  // clear previous HTML list
-  clearList();
+  var popupCoach = data.val();
 
-  // Make an HTML list
-  var list = createElement('ol');
-  list.parent('data');
+  var titleItIT = document.getElementById("title_it-IT");
+  titleItIT.textContent = popupCoach.title["it-IT"];
+  var titleEnUS = document.getElementById("title_en-US");
+  titleEnUS.textContent = popupCoach.title["en-US"];
+  var titleEsES = document.getElementById("title_es-ES");
+  titleEsES.textContent = popupCoach.title["es-ES"];
+  var titledeDE = document.getElementById("title_de-DE");
+  titledeDE.textContent = popupCoach.title["de-DE"];
 
-  // Loop through array
-  for (var i = 0; i < keys.length; i++) {
-    var key = keys[i];
-    var fruit = fruits[key];
-    var li = createElement('li', fruit.fruit + ': ' + fruit.total + ", key: " + key);
-    li.parent(list);
-    listItems.push(li);
-  }
+  popupCoachData.title["it-IT"] = popupCoach.title["it-IT"];
+  popupCoachData.title["en-US"] = popupCoach.title["en-US"];
+  popupCoachData.title["es-ES"] = popupCoach.title["es-ES"];
+  popupCoachData.title["de-DE"] = popupCoach.title["de-DE"];
+
 }
 
-// Clear everything
-function clearList() {
-  for (var i = 0; i < listItems.length; i++) {
-    listItems[i].remove();
-  }
-}
 
-// This is a function for sending data
 function sendToFirebase() {
-  var fruits = database.ref('fruits');
 
-  // Make an object with data in it
-  var data = {
-    fruit: fruitInput.value(),
-    total: totalInput.value()
-  }
+  popupCoachData.title["it-IT"] = select('#title_it-IT').value();
+  popupCoachData.title["en-US"] = select('#title_en-US').value(); 
+  popupCoachData.title["es-ES"] = select('#title_es-ES').value();
+  popupCoachData.title["de-DE"] = select('#title_de-DE').value(); 
 
-  var fruit = fruits.push(data, finished);
-  console.log("Firebase generated key: " + fruit.key);
+  firebase.database().ref('popupCoach').update(popupCoachData);
 
-  // Reload the data for the page
   function finished(err) {
     if (err) {
       console.log("ooops, something went wrong.");

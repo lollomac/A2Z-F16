@@ -3,12 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Firebase 1</title>
-
     <script src="libraries/p5.js" type="text/javascript"></script>
-
     <script src="libraries/p5.dom.js" type="text/javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/3.5.2/firebase.js"></script>
-
     <script src="sketch.js" type="text/javascript"></script>
 
     <style>
@@ -20,15 +17,19 @@
   </head>
   <body>
 
-    <h1>Parse Saving and Getting Data</h1>
-
-    <p>This page sends and retrieves data from <a href="http://firebase.com">Firebase</a>.
-
-    <p>
-      fruit: <input value="mango" id="fruit"></input><br/>
-      total: <input value="17" id="total"></input><br/><br/>
+    <div id="title_div" style="color:#000000">
+  <h3>Title</h3>
+  <ul>
+  	<li>it-IT<br/><textarea name="Text1" id="title_it-IT" cols="100" rows="5"></textarea><br/><br/></li>
+    <li>en-US<br/><textarea name="Text1" id="title_en-US" cols="100" rows="5"></textarea><br/><br/></li>
+    <li>es-ES<br/><textarea name="Text1" id="title_es-ES" cols="100" rows="5"></textarea><br/><br/></li>
+    <li>de-DE<br/><textarea name="Text1" id="title_de-DE" cols="100" rows="5"></textarea><br/><br/></li>
+    
+  </ul>
+  <p>
       <button id="submit">submit</button>
     </p>
+</div>
 
     <p id="data"></p>
 

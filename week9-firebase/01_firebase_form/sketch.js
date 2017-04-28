@@ -14,11 +14,12 @@ var database;
 function setup() {
 
   var config = {
-    apiKey: "AIzaSyA-VyZJOZVqXZj82wvVMkfJedDEhqXcIh8",
-    authDomain: "a2zitp-6519b.firebaseapp.com",
-    databaseURL: "https://a2zitp-6519b.firebaseio.com",
-    storageBucket: "a2zitp-6519b.appspot.com",
-    messagingSenderId: "363965061200"
+    apiKey: "AIzaSyAbrkbRGy78jECUfEaIDg8xrI_-PQ6FKs",
+    authDomain: "spintrainer-test.firebaseapp.com",
+    databaseURL: "https://spintrainer-test.firebaseio.com",
+    projectId: "spintrainer-test",
+    storageBucket: "spintrainer-test.appspot.com",
+    messagingSenderId: "55154703846"
   };
   firebase.initializeApp(config);
   database = firebase.database();
